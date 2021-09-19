@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, TextInput, View, FlatList, Button, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import Platforms from './Platforms';
 import Regions from './Regions';
+import {clientID, bearer} from './config.js';
 import styles from './Details.screen.style';
 
 export default function DetailsScreen({route,navigation}){
@@ -27,8 +28,8 @@ export default function DetailsScreen({route,navigation}){
         const request = new Request(`https://api.igdb.com/v4/games`, {
           method: "POST",
           headers:{
-            "Client-ID": "46fyrld7q2dusipj65jqqcpco8zwj1",
-            "Authorization":"Bearer ybu2h4d02jkcmn6p2b3lcyiew0jc57",
+            "Client-ID": clientID,
+            "Authorization":`Bearer ${bearer}`,
           },
           body:text
         });
