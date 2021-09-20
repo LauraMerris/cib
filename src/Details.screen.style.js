@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
       flex:1
     },
     scrollContainer: {
+      padding:25,
     },
     loading: {
         color:'#fff',

@@ -10,7 +10,7 @@ export default function DetailsScreen({route,navigation}){
     const [gameDetails, setGameDetails] = useState(null);
     const [gameID, setGameID] = useState(route.params.id);
     const [platform, setPlatform] = useState(null);
-    const [region, setRegion] = useState(0);
+    const [region, setRegion] = useState(null);
     const regionMap = {1:'Europe',2:'North America',3:'Australia',4:'New Zealand',5:'Japan',6:'China',7:'Asia',8:'Worldwide'}
     const fetchGame = async (searchTerm) => {
       //syntax note ( multiple lines of stuff ) is equivalent to return { multiple lines of stuff }
@@ -75,7 +75,6 @@ export default function DetailsScreen({route,navigation}){
     
     return (gameDetails ?
       <View style={styles.container}>
-        <ScrollView style={styles.scrollContainer}>
           <Text style={styles.mainHeading}>{gameDetails.name}</Text>
           <Text style={styles.image}>Image goes here</Text>
           <Text style={styles.title}>You selected {platform} and {regionMap[region]}</Text>
@@ -85,7 +84,6 @@ export default function DetailsScreen({route,navigation}){
           { gameDetails.release_dates &&
             <Regions releases={gameDetails.release_dates.filter(release => release.platform.id == platform)} currentRegion={region} onChange={setRegion} />
           }        
-        </ScrollView>
       </View> : <View><Text>Loading...</Text></View>
     )
 
