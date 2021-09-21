@@ -22,19 +22,6 @@ const styles = StyleSheet.create({
       padding: 32,
       margin:0,
     },
-    buttonMain: {
-      paddingHorizontal:10,
-      paddingVertical:16,
-      borderRadius:10,
-      backgroundColor:'#c0efe0',
-      color:'#393939',
-      marginBottom:24,
-      textAlign:"center",
-    },
-    buttonMainText:{
-      fontSize:24,
-      textAlign:"center"
-    },
     list: {
       flex:3,
       backgroundColor:'#2b2b2b',

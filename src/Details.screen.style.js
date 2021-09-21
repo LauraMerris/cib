@@ -38,17 +38,23 @@ const styles = StyleSheet.create({
         padding:20,
         margin:20,
     },
-    toggleButton:{
-        color:'#fff',
+    toggleButtonInactive:{
         backgroundColor:'#c0efe0',
-        padding:10,
-        margin:10,
+        color:'#fff',
     },
-    toggleButtonBlue:{
+    toggleButtonActive:{
         color:'#000',
         backgroundColor:'#fff',
-        padding:10,
-        margin:10,
+        
+    },
+    toggleButton: {
+      flex:0.3,
+      padding:0,
+      marginVertical:10,
+      paddingVertical:10,
+    },
+    toggleButtonText:{
+      textAlign:'center',
     }
   });
 

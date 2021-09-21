@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, TextInput, View, FlatList, Button } from 'react-native';
+import MainButton from './MainButton';
 import styles from './Home.screen.style';
 
 export default function HomeScreen({navigation}){
@@ -89,9 +90,7 @@ export default function HomeScreen({navigation}){
       return (
         <View style={styles.container}>
           <View style={styles.searchContainer}>
-            <TouchableOpacity style={styles.buttonMain}>
-              <Text style={styles.buttonMainText}>Platform</Text>
-            </TouchableOpacity>
+            <MainButton buttonText="Platform"/>
             <TextInput style={styles.search} placeholder="Search" defaultValue={searchTerm} onChangeText={text => onChangeText(text)} returnKeyType="search" onSubmitEditing={() => setSearchTerm(searchText)}></TextInput>
           </View>
           <View style={styles.list}>
