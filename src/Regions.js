@@ -9,18 +9,21 @@ const Regions = ({releases, currentRegion, onChange}) => {
     const data = releases.sort(sortByLookup("region", regionMap));
 
     const handleChange = (region) => {
-        onChange(region);
+
+        // is active
+        (region === currentRegion) ? onChange(null) : onChange(region)
 
         // or if it's on just turn it off and pass null to onChange
     }
 
-    const renderItem = ({ item }) => (
-        <TouchableOpacity onPress={() => handleChange(item.region)}>
-            <View style={currentRegion == item.region ? styles.toggleButtonBlue : styles.toggleButton}>
-                <Text>{regionMap[item.region]}</Text>
-                <Text>{item.y}</Text>
+    const renderItem = ({ item }) => ( 
+            <View style={[styles.toggleButton, currentRegion == item.region ? styles.toggleButtonActive : styles.toggleButtonInactive]}>
+                <TouchableOpacity onPress={() => handleChange(item.region)}>
+                    <Text style={styles.toggleButtonText}>{regionMap[item.region]}</Text>
+                    <Text style={styles.toggleButtonText}>{item.y}</Text>
+                </TouchableOpacity>
             </View>
-        </TouchableOpacity>
+        
     );
 
     // assuming here that region only ever appears once - possibly incorrect and need compound key
@@ -29,22 +32,11 @@ const Regions = ({releases, currentRegion, onChange}) => {
         data={data}
         renderItem={renderItem}
         keyExtractor={item => item.region}
-        numColumns={3}>
+        numColumns={3}
+        columnWrapperStyle={{justifyContent: 'space-between'}}>
 
     </FlatList>
     )
-    /*
-        <TouchableWithoutFeedback 
-            key= {item.id}
-            value={item.region}
-            onPress={() => onChange(item.region)}
-        >
-          <View style={currentRegion == item.region ? styles.toggleButtonBlue : styles.toggleButton}>
-            <Text>{regionMap[item.region]}</Text>
-            <Text>{item.y}</Text>
-          </View>
-        </TouchableWithoutFeedback>
-      ); */
     
 };
 
