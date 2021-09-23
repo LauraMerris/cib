@@ -2,12 +2,14 @@ import {StyleSheet} from 'react-native';
 
 
 const styles = StyleSheet.create({
+  
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22
   },
+
   modalView: {
     margin: 20,
     backgroundColor: "white",
@@ -21,8 +23,10 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
+    height:350,
   },
+  
   button: {
     borderRadius: 20,
     padding: 10,
@@ -41,8 +45,8 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
   }
+  
 });
 
 export default styles;
