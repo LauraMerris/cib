@@ -26,18 +26,17 @@ const Platforms = ({platforms, selectedItem, onChange}) => {
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
             }}
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <ButtonList style={styles.modalText} items={platforms} textProp="name" valueProp="id" keyProp="id"/>
+                    <ButtonList items={platforms} textProp="name" valueProp="id" keyProp="id"/>
                     <Pressable
-                    style={[styles.button, styles.buttonClose]}
+                    style={styles.cancelButton}
                     onPress={() => setModalVisible(!modalVisible)}
                     >
-                      <Text style={styles.textStyle}>Cancel</Text>
+                      <Text style={styles.cancelButtonText}>Cancel</Text>
                     </Pressable>
                 </View>
             </View>

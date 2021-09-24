@@ -14,8 +14,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
+    padding: 45,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -24,27 +23,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    height:350,
+    height:'90%',
+    width:'90%',
   },
-  
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
+  cancelButton:{
+    paddingHorizontal:10,
+    paddingVertical:16,
+    borderRadius:10,
+    backgroundColor:'#c0efe0',
+    color:'#393939',
+    textAlign:"center",
+    position:'absolute',
+    bottom:45,
+    left:'50%',
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
+  cancelButtonText:{
+    fontSize:20,
+    textAlign:"center",
   }
   
 });
