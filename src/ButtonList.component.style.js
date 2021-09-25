@@ -7,9 +7,19 @@ const styles = StyleSheet.create({
       paddingVertical:16,
     },
     title: {
-        fontSize: 18,
-        color:'#fff',
-      },
+      fontSize: 18,
+      color:'#fff',
+    },
+    buttonListItem: {
+      borderWidth: 1,
+      borderColor:'#ccc',
+      borderRadius:10,
+      padding:20,
+      marginBottom:20
+    },
+    text:{
+      color:'#000'
+    }
 });
 
 export default styles;
