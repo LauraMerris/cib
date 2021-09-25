@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22
   },
-
   modalView: {
     margin: 20,
     backgroundColor: "white",
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
     paddingHorizontal:10,
     paddingVertical:16,
     borderRadius:10,
-    backgroundColor:'#c0efe0',
+    backgroundColor:'#eee',
     color:'#393939',
     textAlign:"center",
     position:'absolute',
@@ -40,7 +39,21 @@ const styles = StyleSheet.create({
   cancelButtonText:{
     fontSize:20,
     textAlign:"center",
-  }
+  },
+  selectedPlatform:{
+      paddingHorizontal:10,
+      paddingVertical:16,
+      borderRadius:10,
+      borderWidth:1,
+      borderColor:'#eee',
+      marginBottom:24,
+      textAlign:"center",
+  },
+  selectedPlatformText:{
+      fontSize:24,
+      textAlign:"center",
+      color:'#eee',
+  },
   
 });
 
