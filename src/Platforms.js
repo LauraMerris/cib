@@ -4,11 +4,12 @@ import ButtonList from './ButtonList';
 import MainButton from './MainButton';
 import styles from './Platforms.screen.style'
 
-    const Platforms = ({platforms, selectedItem, onChange}) => {
+    const Platforms = ({platforms, selectedPlatform, onChange}) => {
 
       const [modalVisible, setModalVisible] = useState(false);
       
-      const selected = platforms.filter((item) => item.id == selectedItem);
+      // here we are assuming platforms is an array
+      const selected = platforms.filter((item) => item.id == selectedPlatform);
 
       const platformSelected = (ID) => {
         setModalVisible(false);

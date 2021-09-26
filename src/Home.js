@@ -1,19 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, TextInput, View, FlatList, Button } from 'react-native';
-import MainButton from './MainButton';
+import { Text, TouchableWithoutFeedback, TextInput, View, FlatList, Button } from 'react-native';
+import Platforms from './Platforms';
 import styles from './Home.screen.style';
+import { sortAlphabetically, sortNumerically } from './Utilities';
+import {clientID, bearer} from './config.js';
 
 export default function HomeScreen({navigation}){
     const [games, setGames] = useState(null);
     const [page, setPage] = useState(1); 
+    const [availablePlatforms, setAvailablePlatforms] = useState([]);
+    const [platform, setPlatform] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     let searchText = '';
     const limit = 20;
     let offset = 0;
+
     
-    const fetchGames = async (searchTerm) => {
+    const fetchGames = async (searchTerm, platformID) => {
+
+      const whereSearch = platformID ? `where platforms = (${platformID});` : '';
 
       // clean searchTerm here
       const text = `fields name,
@@ -26,12 +32,14 @@ export default function HomeScreen({navigation}){
         release_dates.date,
         version_title;
         limit ${limit};
-        search "${searchTerm}";`;
+        search "${searchTerm}";
+        ${whereSearch};`
+
       const request = new Request(`https://api.igdb.com/v4/games`, {
         method: "POST",
         headers:{
-          "Client-ID": "46fyrld7q2dusipj65jqqcpco8zwj1",
-          "Authorization":"Bearer ybu2h4d02jkcmn6p2b3lcyiew0jc57",
+          "Client-ID": clientID,
+          "Authorization":`Bearer ${bearer}`,
         },
         body:text
       });
@@ -45,20 +53,50 @@ export default function HomeScreen({navigation}){
   
         // save to useState
         setGames(games);
+        console.log(games);
   
       } catch (error){
         console.log(error);
       }
     }
-    
-    useEffect(() => {
-      fetchGames(searchTerm);
-    },[searchTerm])
 
-    const viewDetails = (id) => {
-      navigation.navigate("Details");
+    const fetchPlatforms = async () => {
+      const text = `fields name, generation; where category= (1,5,6); limit 200;`;
+      const request = new Request(`https://api.igdb.com/v4/platforms`, {
+        method: "POST",
+        headers:{
+          "Accept":"application/json",
+          "Client-ID": clientID,
+          "Authorization":`Bearer ${bearer}`,
+        },
+        body:text
+      });
+
+      try {
+        const apiCall = await fetch(request);
+        const retrievedPlatforms = await apiCall.json();
+
+        // filter out all non-generation platforms before sorting numerically, otherwise the sort will not work
+        //const filterGeneration = retrievedPlatforms.filter((item => 'generation' in item)).sort((a,b) => b.generation - a.generation);
+
+        setAvailablePlatforms(retrievedPlatforms.sort(sortAlphabetically('name')));
+
+      } catch(error) {
+        console.log(error);
+      }
     }
 
+    useEffect(() => {
+      // get available platforms just the first time the component is loaded
+      fetchPlatforms();
+    }, []);
+    
+    useEffect(() => {
+      fetchGames(searchTerm, platform);
+      // changing to include platform select
+    },[searchTerm, platform]);
+
+    // returns comma separated list of platforms from an arry - move to utility function
     const platforms = (platforms) => {
       if (!platforms) {
         return '';
@@ -90,7 +128,7 @@ export default function HomeScreen({navigation}){
       return (
         <View style={styles.container}>
           <View style={styles.searchContainer}>
-            <MainButton buttonText="Platform"/>
+            <Platforms platforms={availablePlatforms} selectedPlatform={platform} onChange={setPlatform}/>
             <TextInput style={styles.search} placeholder="Search" defaultValue={searchTerm} onChangeText={text => onChangeText(text)} returnKeyType="search" onSubmitEditing={() => setSearchTerm(searchText)}></TextInput>
           </View>
           <View style={styles.list}>
