@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Modal, Pressable, Button} from 'react-native';
 import ButtonList from './ButtonList';
+import ButtonSelectedItem from './ButtonSelectedItem';
 import MainButton from './MainButton';
 import styles from './Platforms.screen.style'
 
-    const Platforms = ({platforms, selectedPlatform, onChange}) => {
+    const Platforms = ({platforms, selectedPlatformID, onChange}) => {
 
       const [modalVisible, setModalVisible] = useState(false);
-      
-      // here we are assuming platforms is an array
-      const selected = platforms.filter((item) => item.id == selectedPlatform);
+      //const [selected, setSelected] = useState(null);
+
+      let selectedItem = [];
+
+      if (selectedPlatformID) {
+        selectedItem = platforms.filter((item) => item.id == selectedPlatformID);
+      }
 
       const platformSelected = (ID) => {
         setModalVisible(false);
@@ -37,9 +42,11 @@ import styles from './Platforms.screen.style'
                   </View>
               </View>
           </Modal>
-        {(selected.length) ? <Pressable style={[styles.selectedPlatform]} onPress={() => setModalVisible(true)}><Text style={styles.selectedPlatformText}>{selected[0].name} (edit)</Text></Pressable> : 
+          {(selectedItem.length) ? 
+          <ButtonSelectedItem buttonText={selectedItem[0].name} onButtonPress={() => setModalVisible(true)}/> : 
           <MainButton buttonText="Select a platform" onButtonPress={() => setModalVisible(true)} />
-        }
+          }
+        
       </View>
 };
 

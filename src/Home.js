@@ -53,7 +53,6 @@ export default function HomeScreen({navigation}){
   
         // save to useState
         setGames(games);
-        console.log(games);
   
       } catch (error){
         console.log(error);
@@ -128,7 +127,7 @@ export default function HomeScreen({navigation}){
       return (
         <View style={styles.container}>
           <View style={styles.searchContainer}>
-            <Platforms platforms={availablePlatforms} selectedPlatform={platform} onChange={setPlatform}/>
+            <Platforms platforms={availablePlatforms} selectedPlatformID={platform} onChange={setPlatform}/>
             <TextInput style={styles.search} placeholder="Search" defaultValue={searchTerm} onChangeText={text => onChangeText(text)} returnKeyType="search" onSubmitEditing={() => setSearchTerm(searchText)}></TextInput>
           </View>
           <View style={styles.list}>
