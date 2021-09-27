@@ -45,33 +45,36 @@ export default function DetailsScreen({route,navigation}){
     }
 
     // think this doesn't need to be an effect, as change in params triggers a re-render anyway
-    // what's the alternative?
+    // what's the alternative - UseRef ?
 
     useEffect(() => {
         fetchGame(gameID)
     },[gameID]);
     
     const handlePlatformChange = (value) => {
+      if (value != platform){
+        // clear region selection on platform change
+        setRegion(0);
+      }
       setPlatform(value);
-      // clear region selection on platform change
-      setRegion(0);
     }
 
     
     return (gameDetails ?
-      <View style={styles.container}>
+      <View style={styles.page}>
           <Text style={styles.mainHeading}>{gameDetails.name}</Text>
           <Text style={styles.image}>Image goes here</Text>
-          <Text style={styles.title}>You selected {platform} and {regionMap[region]}</Text>
+          {/* <Text style={styles.title}>You selected {platform} and {regionMap[region]}</Text> */}
           {gameDetails.platforms &&
             <Platforms platforms={gameDetails.platforms} selectedPlatformID={platform} onChange={handlePlatformChange} />
           }
           { gameDetails.release_dates &&
             <Regions releases={gameDetails.release_dates.filter(release => release.platform.id == platform)} currentRegion={region} onChange={setRegion} />
           }     
-          <MainButton buttonText="Add to collection" />
-      </View> : <View><Text>Loading...</Text></View>
+          <View>
+            <MainButton buttonText="Add to collection" />
+          </View>
+      </View> : <View><Text style={styles.loading}>Loading...</Text></View>
     )
-
 
   }

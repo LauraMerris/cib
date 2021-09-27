@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
 import {sortByLookup} from './Utilities';
-import styles from './Details.screen.style';
+import styles from './Regions.screen.style';
 import { FlatList } from 'react-native-gesture-handler';
 
 const Regions = ({releases, currentRegion, onChange}) => {
@@ -34,7 +34,6 @@ const Regions = ({releases, currentRegion, onChange}) => {
         keyExtractor={item => item.region}
         numColumns={3}
         columnWrapperStyle={{justifyContent: 'space-between'}}>
-
     </FlatList>
     )
     
