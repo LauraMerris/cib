@@ -1,30 +1,20 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
+    page: {
       backgroundColor: '#2b2b2b',
       color:'#fff',
-      padding:0,
-      paddingTop:0,
-      flex:1
-    },
-    scrollContainer: {
-      padding:25,
+      padding:32,
+      flex:1,
     },
     loading: {
         color:'#fff',
     },
     mainHeading:{
         fontSize:36,
-        padding:32,
         color:'#fff',
         alignSelf:'center',
         textAlign:'center',
-    },
-    list: {
-      backgroundColor:'#2b2b2b',
-      padding:32,
-      paddingVertical:16,
     },
     title: {
         fontSize: 18,
@@ -38,24 +28,6 @@ const styles = StyleSheet.create({
         padding:20,
         margin:20,
     },
-    toggleButtonInactive:{
-        backgroundColor:'#c0efe0',
-        color:'#fff',
-    },
-    toggleButtonActive:{
-        color:'#000',
-        backgroundColor:'#fff',
-        
-    },
-    toggleButton: {
-      flex:0.3,
-      padding:0,
-      marginVertical:10,
-      paddingVertical:10,
-    },
-    toggleButtonText:{
-      textAlign:'center',
-    }
   });
 
   export default styles;
