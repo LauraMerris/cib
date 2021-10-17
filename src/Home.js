@@ -77,11 +77,11 @@ export default function HomeScreen({navigation}){
 
         // filter out all non-generation platforms before sorting numerically, otherwise the sort will not work
         //const filterGeneration = retrievedPlatforms.filter((item => 'generation' in item)).sort((a,b) => b.generation - a.generation);
-
+        console.log(retrievedPlatforms);
         setAvailablePlatforms(retrievedPlatforms.sort(sortAlphabetically('name')));
 
       } catch(error) {
-        console.log(error);
+
       }
     }
 

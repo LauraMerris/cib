@@ -46,6 +46,7 @@ export default function DetailsScreen({route,navigation}){
 
     // think this doesn't need to be an effect, as change in params triggers a re-render anyway
     // what's the alternative - UseRef ?
+    // should change on route change - won't update otherwise even if gameID changes.
 
     useEffect(() => {
         fetchGame(gameID)

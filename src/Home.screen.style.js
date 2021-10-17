@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#2b2b2b',
       padding:0,
       paddingTop:0,
-      flex:1
+      flex:1,
     },
     search: {
       height: 60, 
