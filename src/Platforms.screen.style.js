@@ -5,12 +5,30 @@ const styles = StyleSheet.create({
   
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    alignItems:'center',
+    justifyContent:'flex-end',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  cancelButton:{
+    paddingHorizontal:10,
+    paddingVertical:16,
+    borderRadius:10,
+    backgroundColor:'#eee',
+    color:'#393939',
+    textAlign:"center",
+    position:'absolute',
+    top:10,
+    right:10,
+  },
+  cancelButtonText:{
+    fontSize:20,
+    textAlign:"center",
+  },
+  flex:{
+    flex:1
   },
   modalView: {
-    margin: 20,
+    margin: 0,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 45,
@@ -25,21 +43,7 @@ const styles = StyleSheet.create({
     height:'90%',
     width:'90%',
   },
-  cancelButton:{
-    paddingHorizontal:10,
-    paddingVertical:16,
-    borderRadius:10,
-    backgroundColor:'#eee',
-    color:'#393939',
-    textAlign:"center",
-    position:'absolute',
-    bottom:45,
-    left:'50%',
-  },
-  cancelButtonText:{
-    fontSize:20,
-    textAlign:"center",
-  }
 });
+
 
 export default styles;
