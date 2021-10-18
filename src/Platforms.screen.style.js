@@ -40,9 +40,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    height:'90%',
-    width:'90%',
+    paddingTop:40,
   },
+  header:{
+    backgroundColor:'darkkhaki',
+    height:60,
+  }
 });
 
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Text, TouchableWithoutFeedback, TextInput, View, FlatList, Button } from 'react-native';
+import { Text, TouchableWithoutFeedback, TextInput, View, FlatList, Button, SafeAreaView } from 'react-native';
 import Platforms from './Platforms';
 import styles from './Home.screen.style';
 import { sortAlphabetically, sortNumerically } from './Utilities';
@@ -77,7 +77,6 @@ export default function HomeScreen({navigation}){
 
         // filter out all non-generation platforms before sorting numerically, otherwise the sort will not work
         //const filterGeneration = retrievedPlatforms.filter((item => 'generation' in item)).sort((a,b) => b.generation - a.generation);
-        console.log(retrievedPlatforms);
         setAvailablePlatforms(retrievedPlatforms.sort(sortAlphabetically('name')));
 
       } catch(error) {
@@ -125,7 +124,7 @@ export default function HomeScreen({navigation}){
       let pageIsFirst = page == 1;
 
       return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <View style={styles.searchContainer}>
             <Platforms platforms={availablePlatforms} selectedPlatformID={platform} onChange={setPlatform}/>
             <TextInput style={styles.search} placeholder="Search" defaultValue={searchTerm} onChangeText={text => onChangeText(text)} returnKeyType="search" onSubmitEditing={() => setSearchTerm(searchText)}></TextInput>
@@ -139,7 +138,7 @@ export default function HomeScreen({navigation}){
               />
             }
           </View>
-        </View>
+        </SafeAreaView>
       )
     }
 
