@@ -98,21 +98,22 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
                 }}
             > 
               <SafeAreaView style={styles.centeredView}>
-                <Animated.View style={[styles.modalView, { transform:[{translateY : dragY}]}]}>
-                  <PanGestureHandler onGestureEvent={panHandler} onHandlerStateChange={stateChangeHandler}>
-                    <Animated.View style={styles.header}>
-                    </Animated.View>
-                  </PanGestureHandler>
-                  <Animated.View>
-                    <Pressable
-                          style={styles.cancelButton}
-                          onPress={() => setModalVisible(!modalVisible)}
-                          >
-                      <Text style={styles.cancelButtonText}>X</Text>
-                    </Pressable>
-                    <ButtonList items={platforms} textProp="name" valueProp="id" keyProp="id" onButtonPressed={platformSelected}/>
-                  </Animated.View>
-                </Animated.View>
+                <PanGestureHandler onGestureEvent={panHandler} onHandlerStateChange={stateChangeHandler}>
+                  <Animated.View style={[styles.modalView, { transform:[{translateY : dragY}]}]}>
+                    <View style={styles.modalHeader}>
+                      <View style={styles.modalHandle}></View>
+                    </View>
+                    <View style={styles.modalBody}>
+                      {/*<Pressable
+                            style={styles.cancelButton}
+                            onPress={() => setModalVisible(!modalVisible)}
+                            >
+                        <Text style={styles.cancelButtonText}>X</Text>
+                      </Pressable>   */}
+                      <ButtonList items={platforms} textProp="name" valueProp="id" keyProp="id" onButtonPressed={platformSelected}/>
+                    </View> 
+                  </Animated.View> 
+                </PanGestureHandler>
               </SafeAreaView>
             </Modal>
             {(selectedItem.length) ? 
