@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Animated, Dimensions, Easing} from 'react-native';
-import { PanGestureHandler, State} from 'react-native-gesture-handler';
+import { FlingGestureHandler, PanGestureHandler, Directions, State, ScrollView, NativeViewGestureHandler } from 'react-native-gesture-handler';
 
 export default function BottomDrawer({min, max, children, visible, handleClose}) {
     const styles = StyleSheet.create({
@@ -12,8 +12,8 @@ export default function BottomDrawer({min, max, children, visible, handleClose})
           bottom:0,
           position:'absolute',
           backgroundColor:'darkkhaki',
-          padding:40,
-          paddingTop:80,
+          padding:45,
+          paddingTop:80
         },
         scrollContainer:{
             flex:1,
