@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import { View, Text, Modal, Pressable, Animated, Dimensions, SafeAreaView, Easing} from 'react-native';
+import { View, Text, Modal, Pressable, Animated, Dimensions, Easing} from 'react-native';
 import ButtonList from './ButtonList';
 import ButtonSelectedItem from './ButtonSelectedItem';
 import MainButton from './MainButton';
@@ -97,24 +97,26 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
                   setModalVisible(false);
                 }}
             > 
-              <SafeAreaView style={styles.centeredView}>
-                <PanGestureHandler onGestureEvent={panHandler} onHandlerStateChange={stateChangeHandler}>
-                  <Animated.View style={[styles.modalView, { transform:[{translateY : dragY}]}]}>
-                    <View style={styles.modalHeader}>
-                      <View style={styles.modalHandle}></View>
-                    </View>
-                    <View style={styles.modalBody}>
-                      {/*<Pressable
-                            style={styles.cancelButton}
-                            onPress={() => setModalVisible(!modalVisible)}
-                            >
-                        <Text style={styles.cancelButtonText}>X</Text>
-                      </Pressable>   */}
-                      <ButtonList items={platforms} textProp="name" valueProp="id" keyProp="id" onButtonPressed={platformSelected}/>
-                    </View> 
-                  </Animated.View> 
-                </PanGestureHandler>
-              </SafeAreaView>
+              <View style={styles.container}>
+                <View style={styles.modalWrapper}>
+                  <PanGestureHandler onGestureEvent={panHandler} onHandlerStateChange={stateChangeHandler}>
+                    <Animated.View style={[styles.modalView, { transform:[{translateY : dragY}]}]}>
+                      <View style={styles.modalHeader}>
+                        <View style={styles.modalHandle}></View>
+                      </View>
+                      <View style={styles.modalBody}>
+                        <ButtonList items={platforms} textProp="name" valueProp="id" keyProp="id" onButtonPressed={platformSelected}/>
+                        {/*<Pressable
+                              style={styles.cancelButton}
+                              onPress={() => setModalVisible(!modalVisible)}
+                              >
+                          <Text style={styles.cancelButtonText}>X</Text>
+                        </Pressable>   */}
+                      </View> 
+                    </Animated.View> 
+                  </PanGestureHandler>
+                </View>
+              </View>
             </Modal>
             {(selectedItem.length) ? 
             <ButtonSelectedItem buttonText={selectedItem[0].name} onButtonPress={() => setModalVisible(true)}/> : 
