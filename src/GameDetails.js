@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, TextInput, View, FlatList, Button, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { StyleSheet, Text, TextInput, View, FlatList, Button, TouchableWithoutFeedback, ScrollView, SafeAreaView } from 'react-native';
 import Platforms from './Platforms';
 import Regions from './Regions';
 import MainButton from './MainButton';
@@ -62,20 +62,21 @@ export default function DetailsScreen({route,navigation}){
 
     
     return (gameDetails ?
-      <View style={styles.page}>
-          <Text style={styles.mainHeading}>{gameDetails.name}</Text>
-          <Text style={styles.image}>Image goes here</Text>
-          {/* <Text style={styles.title}>You selected {platform} and {regionMap[region]}</Text> */}
-          {gameDetails.platforms &&
-            <Platforms platforms={gameDetails.platforms} selectedPlatformID={platform} onChange={handlePlatformChange} />
-          }
-          { gameDetails.release_dates &&
-            <Regions releases={gameDetails.release_dates.filter(release => release.platform.id == platform)} currentRegion={region} onChange={setRegion} />
-          }     
-          <View>
-            <MainButton buttonText="Add to collection" />
-          </View>
-      </View> : <View><Text style={styles.loading}>Loading...</Text></View>
+        <View style={styles.container}>
+            <Text style={styles.mainHeading}>{gameDetails.name}</Text>
+            <Text style={styles.image}>Image goes here</Text> 
+            {/* <Text style={styles.title}>You selected {platform} and {regionMap[region]}</Text> */}
+            {gameDetails.platforms && 
+              <Platforms platforms={gameDetails.platforms} selectedPlatformID={platform} onChange={handlePlatformChange} />
+            }
+            { gameDetails.release_dates &&
+              <Regions releases={gameDetails.release_dates.filter(release => release.platform.id == platform)} currentRegion={region} onChange={setRegion} />
+            }     
+            <View>
+              <MainButton buttonText="Add to collection" />
+            </View> 
+        </View>
+       : <View><Text style={styles.loading}>Loading...</Text></View>
     )
 
   }
