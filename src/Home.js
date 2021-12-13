@@ -4,6 +4,7 @@ import Platforms from './Platforms';
 import styles from './Home.screen.style';
 import { sortAlphabetically, sortNumerically } from './Utilities';
 import {clientID, bearer} from './config.js';
+import { fetchPlats, fetchGames } from './firebaseConnect';
 
 export default function HomeScreen({navigation}){
     const [games, setGames] = useState(null);
@@ -14,9 +15,9 @@ export default function HomeScreen({navigation}){
     const [searchTerm, setSearchTerm] = useState('');
     let searchText = '';
     const limit = 20;
-    let offset = 0;
 
     
+    /*
     const fetchGames = async (searchTerm, platformID) => {
 
       const whereSearch = platformID ? `where platforms = (${platformID});` : '';
@@ -58,7 +59,9 @@ export default function HomeScreen({navigation}){
         console.log(error);
       }
     }
+    */
 
+    /*
     const fetchPlatforms = async () => {
       const text = `fields name, generation; where category= (1,5,6); limit 200;`;
       const request = new Request(`https://api.igdb.com/v4/platforms`, {
@@ -74,6 +77,7 @@ export default function HomeScreen({navigation}){
       try {
         const apiCall = await fetch(request);
         const retrievedPlatforms = await apiCall.json();
+        console.log(retrievedPlatforms);
 
         // filter out all non-generation platforms before sorting numerically, otherwise the sort will not work
         //const filterGeneration = retrievedPlatforms.filter((item => 'generation' in item)).sort((a,b) => b.generation - a.generation);
@@ -82,6 +86,25 @@ export default function HomeScreen({navigation}){
       } catch(error) {
 
       }
+    }
+    */
+
+    const fetchGames = async (searchTerm, platformID) => {
+     try{
+      setIsLoading(true);
+      const games = await fetchGames({platformID: '', searchTerm: 'Skyrim'})
+      setIsLoading(false);
+      setGames(games);
+    } catch(error){
+        console.log(error);
+    }
+
+    }
+
+    const fetchPlatforms = async () => {
+      fetchPlats('')
+      .then(result => setAvailablePlatforms(result.data.sort(sortAlphabetically('name'))))
+      .catch(error => console.log(error));
     }
 
     useEffect(() => {
