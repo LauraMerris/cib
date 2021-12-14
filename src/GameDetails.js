@@ -3,8 +3,8 @@ import { StyleSheet, Text, TextInput, View, FlatList, Button, TouchableWithoutFe
 import Platforms from './Platforms';
 import Regions from './Regions';
 import MainButton from './MainButton';
-import {clientID, bearer} from './config.js';
 import styles from './Details.screen.style';
+import * as Api from './crud.js';
 
 export default function DetailsScreen({route,navigation}){
 
@@ -13,6 +13,8 @@ export default function DetailsScreen({route,navigation}){
     const [platform, setPlatform] = useState(null);
     const [region, setRegion] = useState(null);
     const regionMap = {1:'Europe',2:'North America',3:'Australia',4:'New Zealand',5:'Japan',6:'China',7:'Asia',8:'Worldwide'}
+
+
     const fetchGame = async (searchTerm) => {
       //syntax note, in an arrow function ( multiple lines of stuff ) is equivalent to return { multiple lines of stuff }
 
@@ -43,6 +45,22 @@ export default function DetailsScreen({route,navigation}){
           console.log(error);
         }
     }
+
+    /*
+
+    // need a different call to get game details (and clean up other query to make sure only getting data that is used.)
+
+    const getGames = async (searchTerm) => {
+      try{
+        const games = await Api.getGames(searchTerm, '')
+        setGameDetails(games[0]);
+      } catch(error){
+          console.error(error);
+          setIsLoading(false);
+      }
+
+    };
+    */
 
     // think this doesn't need to be an effect, as change in params triggers a re-render anyway
     // what's the alternative - UseRef ?
