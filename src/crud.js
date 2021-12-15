@@ -1,4 +1,4 @@
-import { fetchPlats, fetchGames } from './firebaseConnect';
+import { fetchPlats, fetchGames, fetchGame } from './firebaseConnect';
 
 export const getGames = async (searchTerm, platformID) => {
     try{
@@ -10,11 +10,20 @@ export const getGames = async (searchTerm, platformID) => {
 
   }
 
-  export const getPlatforms = async () => {
-      try{
-        const platforms = await fetchPlats('');
-        return platforms.data;
-      } catch (error){
-        throw error;
-      }
+export const getPlatforms = async () => {
+    try{
+      const platforms = await fetchPlats('');
+      return platforms.data;
+    } catch (error){
+      throw error;
     }
+  }
+
+export const getGame = async (searchTerm) => {
+  try{
+    const game = await fetchGame({searchTerm: searchTerm});
+    return game.data[0];
+  } catch(error){
+    throw error;
+  }
+}

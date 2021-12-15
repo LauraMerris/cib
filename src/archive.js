@@ -70,3 +70,37 @@
       }
     }
     */
+
+    /*
+    const fetchGame = async (searchTerm) => {
+      //syntax note, in an arrow function ( multiple lines of stuff ) is equivalent to return { multiple lines of stuff }
+
+        // clean searchTerm here
+        const text = `fields name,
+        id,
+        platforms.name,
+        release_dates.game.name,
+        release_dates.platform.name,
+        release_dates.region,
+        release_dates.y,
+        version_title;
+        where id=${searchTerm};`;
+        const request = new Request(`https://api.igdb.com/v4/games`, {
+          method: "POST",
+          headers:{
+            "Client-ID": clientID,
+            "Authorization":`Bearer ${bearer}`,
+          },
+          body:text
+        });
+  
+        try{  
+          const apiCall = await fetch(request);
+          const game = await apiCall.json();
+          setGameDetails(game[0]);
+        } catch (error){
+          console.log(error);
+        }
+    }
+
+    */

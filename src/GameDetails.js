@@ -15,52 +15,18 @@ export default function DetailsScreen({route,navigation}){
     const regionMap = {1:'Europe',2:'North America',3:'Australia',4:'New Zealand',5:'Japan',6:'China',7:'Asia',8:'Worldwide'}
 
 
+
     const fetchGame = async (searchTerm) => {
-      //syntax note, in an arrow function ( multiple lines of stuff ) is equivalent to return { multiple lines of stuff }
-
-        // clean searchTerm here
-        const text = `fields name,
-        id,
-        platforms.name,
-        release_dates.game.name,
-        release_dates.platform.name,
-        release_dates.region,
-        release_dates.y,
-        version_title;
-        where id=${searchTerm};`;
-        const request = new Request(`https://api.igdb.com/v4/games`, {
-          method: "POST",
-          headers:{
-            "Client-ID": clientID,
-            "Authorization":`Bearer ${bearer}`,
-          },
-          body:text
-        });
-  
-        try{  
-          const apiCall = await fetch(request);
-          const game = await apiCall.json();
-          setGameDetails(game[0]);
-        } catch (error){
-          console.log(error);
-        }
-    }
-
-    /*
-
-    // need a different call to get game details (and clean up other query to make sure only getting data that is used.)
-
-    const getGames = async (searchTerm) => {
+      console.log(gameID);
       try{
-        const games = await Api.getGames(searchTerm, '')
-        setGameDetails(games[0]);
+        const game = await Api.getGame(searchTerm);
+        setGameDetails(game);
       } catch(error){
           console.error(error);
-          setIsLoading(false);
       }
 
     };
-    */
+    
 
     // think this doesn't need to be an effect, as change in params triggers a re-render anyway
     // what's the alternative - UseRef ?

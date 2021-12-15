@@ -12,3 +12,4 @@ connectFunctionsEmulator(functions, origin, 5001);
 
 export const fetchPlats = httpsCallable(functions, 'fetchPlatforms');
 export const fetchGames = httpsCallable(functions, 'fetchGames');
+export const fetchGame = httpsCallable(functions, 'fetchGame');
