@@ -1,13 +1,6 @@
 import {StyleSheet} from 'react-native';
-import { block } from 'react-native-reanimated';
 
-const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#2b2b2b',
-      padding:0,
-      paddingTop:0,
-      flex:1,
-    },
+const styles = theme => StyleSheet.create({
     search: {
       height: 60, 
       borderRadius:10,
@@ -18,31 +11,31 @@ const styles = StyleSheet.create({
     },
     searchContainer: {
       flex:1,
-      backgroundColor: "#393939",
+      backgroundColor: theme.colors.BACKGROUND_ACCENT,
       padding: 32,
       margin:0,
     },
     list: {
       flex:3,
-      backgroundColor:'#2b2b2b',
       padding:32,
       paddingVertical:16,
+      color:theme.colors.TEXT,
     },
     item: {
       paddingVertical: 24,
     },
     itemID: {
-      color:'#fff',
+      color:theme.colors.TEXT,
     },
     title: {
       fontSize: 18,
-      color:'#fff'
+      color:theme.colors.TEXT,
     },
     platforms: {
-      color:'#fff',
+      color:theme.colors.TEXT,
     },
     loading: {
-      color:'#fff',
+      color:theme.colors.TEXT,
     }
   });
 

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, TextInput, View, FlatList, Button, TouchableWithoutFeedback, ScrollView, SafeAreaView } from 'react-native';
+import { Text, View, } from 'react-native';
 import Platforms from './Platforms';
 import Regions from './Regions';
 import MainButton from './MainButton';
-import {clientID, bearer} from './config.js';
 import styles from './Details.screen.style';
+import * as Api from './crud.js';
 
 export default function DetailsScreen({route,navigation}){
 
@@ -13,36 +13,20 @@ export default function DetailsScreen({route,navigation}){
     const [platform, setPlatform] = useState(null);
     const [region, setRegion] = useState(null);
     const regionMap = {1:'Europe',2:'North America',3:'Australia',4:'New Zealand',5:'Japan',6:'China',7:'Asia',8:'Worldwide'}
-    const fetchGame = async (searchTerm) => {
-      //syntax note, in an arrow function ( multiple lines of stuff ) is equivalent to return { multiple lines of stuff }
 
-        // clean searchTerm here
-        const text = `fields name,
-        id,
-        platforms.name,
-        release_dates.game.name,
-        release_dates.platform.name,
-        release_dates.region,
-        release_dates.y,
-        version_title;
-        where id=${searchTerm};`;
-        const request = new Request(`https://api.igdb.com/v4/games`, {
-          method: "POST",
-          headers:{
-            "Client-ID": clientID,
-            "Authorization":`Bearer ${bearer}`,
-          },
-          body:text
-        });
-  
-        try{  
-          const apiCall = await fetch(request);
-          const game = await apiCall.json();
-          setGameDetails(game[0]);
-        } catch (error){
-          console.log(error);
-        }
-    }
+
+
+    const fetchGame = async (searchTerm) => {
+      console.log(gameID);
+      try{
+        const game = await Api.getGame(searchTerm);
+        setGameDetails(game);
+      } catch(error){
+          console.error(error);
+      }
+
+    };
+    
 
     // think this doesn't need to be an effect, as change in params triggers a re-render anyway
     // what's the alternative - UseRef ?
@@ -62,7 +46,7 @@ export default function DetailsScreen({route,navigation}){
 
     
     return (gameDetails ?
-        <View style={styles.container}>
+        <View>
             <Text style={styles.mainHeading}>{gameDetails.name}</Text>
             <Text style={styles.image}>Image goes here</Text> 
             {/* <Text style={styles.title}>You selected {platform} and {regionMap[region]}</Text> */}
