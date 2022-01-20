@@ -1,12 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#2b2b2b',
-    flex:1,
-    padding:35,
-    margin:0,
-  },
   loading: {
       color:'#fff',
   },

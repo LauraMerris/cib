@@ -6,12 +6,13 @@ import MainButton from './MainButton';
 import styles from './Platforms.screen.style';
 import BottomDrawer from './BottomDrawer';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
-
+import useThemedStyles from './useThemedStyles';
 
     const Platforms = ({platforms, selectedPlatformID, onChange}) => {
 
       const [modalVisible, setModalVisible] = useState(false);
       const animateY = useRef(new Animated.Value(0)).current;
+      const style = useThemedStyles(styles);
 
       let selectedItem = [];
 
@@ -97,14 +98,14 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
                   setModalVisible(false);
                 }}
             > 
-              <View style={styles.container}>
-                <View style={styles.modalWrapper}>
+              <View style={style.container}>
+                <View style={style.modalWrapper}>
                   <PanGestureHandler onGestureEvent={panHandler} onHandlerStateChange={stateChangeHandler}>
-                    <Animated.View style={[styles.modalView, { transform:[{translateY : dragY}]}]}>
-                      <View style={styles.modalHeader}>
-                        <View style={styles.modalHandle}></View>
+                    <Animated.View style={[style.modalView, { transform:[{translateY : dragY}]}]}>
+                      <View style={style.modalHeader}>
+                        <View style={style.modalHandle}></View>
                       </View>
-                      <View style={styles.modalBody}>
+                      <View style={style.modalBody}>
                         <ButtonList items={platforms} textProp="name" valueProp="id" keyProp="id" onButtonPressed={platformSelected}/>
                         {/*<Pressable
                               style={styles.cancelButton}

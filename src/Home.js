@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import { Text, TouchableWithoutFeedback, TextInput, View, FlatList, Button, SafeAreaView } from 'react-native';
+import { Text, TouchableWithoutFeedback, TextInput, View, FlatList, Button } from 'react-native';
 import Platforms from './Platforms';
 import styles from './Home.screen.style';
 import { sortAlphabetically, sortNumerically } from './Utilities';
 import * as Api from './crud.js';
+import { logError } from './ErrorLogger';
+import useThemedStyles from './useThemedStyles';
 
 export default function HomeScreen({navigation}){
     const [games, setGames] = useState(null);
@@ -12,6 +14,9 @@ export default function HomeScreen({navigation}){
     const [platform, setPlatform] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+
+    
+    const style = useThemedStyles(styles);
     
     let searchText = '';
     const limit = 20;
@@ -23,21 +28,41 @@ export default function HomeScreen({navigation}){
         setIsLoading(false);
         setGames(games);
       } catch(error){
-          console.error(error);
+          console.log('games loading error');
+          console.log(error.stack);
           setIsLoading(false);
       }
 
     };
 
+    /*
     const getPlatforms = async () => {
       try {
         const platforms = await Api.getPlatforms('');
+        if (!platforms || !platforms.length) return;
         const sortNameAscending = sortAlphabetically('name');
         setAvailablePlatforms(platforms.sort(sortNameAscending));
       } catch (error) {
         console.error(error);
       }
     };
+    */
+
+    const getPlatforms = () => {
+      Api.getPlatforms()
+      .then(platforms => {
+        if (!platforms || !platforms.length) {
+          throw Error('no platforms found');
+        };
+        const sortNameAscending = sortAlphabetically('name');
+        setAvailablePlatforms(platforms.sort(sortNameAscending));
+      })
+      .catch(error => {
+        console.log('platforms loading error');
+        console.log(error);
+      });
+    }
+
 
     useEffect(() => {
       getPlatforms();
@@ -58,11 +83,11 @@ export default function HomeScreen({navigation}){
     };
   
     const renderItem = ({item}) => ( 
-      <TouchableWithoutFeedback style={styles.item} onPress={() => navigation.navigate("Details", {id: item.id.toString()})}>
-        <View style={styles.item}>
-          <Text style={styles.itemID}>{item.id}</Text>
-          <Text style={styles.title}>{item.name}</Text>
-          <Text style={styles.platforms}>{platforms(item.platforms)}</Text>
+      <TouchableWithoutFeedback style={style.item} onPress={() => navigation.navigate("Details", {id: item.id.toString()})}>
+        <View style={style.item}>
+          <Text style={style.itemID}>{item.id}</Text>
+          <Text style={style.title}>{item.name}</Text>
+          <Text style={style.platforms}>{platforms(item.platforms)}</Text>
         </View>
        </TouchableWithoutFeedback>
     );
@@ -73,16 +98,14 @@ export default function HomeScreen({navigation}){
 
     const Games = () => {
 
-      let pageIsFirst = page == 1;
-
       return (
-        <SafeAreaView style={styles.container}>
-          <View style={styles.searchContainer}>
+        <>
+          <View style={style.searchContainer}>
             <Platforms platforms={availablePlatforms} selectedPlatformID={platform} onChange={setPlatform}/>
-            <TextInput style={styles.search} placeholder="Search" defaultValue={searchTerm} onChangeText={text => onChangeText(text)} returnKeyType="search" onSubmitEditing={() => setSearchTerm(searchText)}></TextInput>
+            <TextInput style={style.search} placeholder="Search" defaultValue={searchTerm} onChangeText={text => onChangeText(text)} returnKeyType="search" onSubmitEditing={() => setSearchTerm(searchText)}></TextInput>
           </View>
-          <View style={styles.list}>
-            {isLoading ? <View><Text style={styles.loading}>Loading...</Text></View> :
+          <View style={style.list}>
+            {isLoading ? <View><Text style={style.loading}>Loading...</Text></View> :
               <FlatList
               data={games}
               renderItem={renderItem}
@@ -90,7 +113,7 @@ export default function HomeScreen({navigation}){
               />
             }
           </View>
-        </SafeAreaView>
+        </>
       )
     }
 

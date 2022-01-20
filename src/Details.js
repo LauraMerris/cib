@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, TextInput, View, FlatList, Button, TouchableWithoutFeedback, ScrollView, SafeAreaView } from 'react-native';
+import { Text, View, } from 'react-native';
 import Platforms from './Platforms';
 import Regions from './Regions';
 import MainButton from './MainButton';
@@ -46,7 +46,7 @@ export default function DetailsScreen({route,navigation}){
 
     
     return (gameDetails ?
-        <View style={styles.container}>
+        <View>
             <Text style={styles.mainHeading}>{gameDetails.name}</Text>
             <Text style={styles.image}>Image goes here</Text> 
             {/* <Text style={styles.title}>You selected {platform} and {regionMap[region]}</Text> */}
